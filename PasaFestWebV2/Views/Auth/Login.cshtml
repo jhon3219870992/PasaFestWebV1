@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Iniciar sesión";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center text-primary mb-4">🔐 Iniciar Sesión</h2>
+
+    @if (ViewBag.Mensaje != null)
+    {
+        <div class="alert alert-danger text-center">@ViewBag.Mensaje</div>
+    }
+
+    <form method="post" class="mx-auto" style="max-width: 400px;">
+        <div class="mb-3">
+            <label for="correo" class="form-label">Correo electrónico</label>
+            <input type="email" name="correo" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label for="contraseña" class="form-label">Contraseña</label>
+            <input type="password" name="contraseña" class="form-control" required />
+        </div>
+        <div class="d-grid">
+            <button type="submit" class="btn btn-success">Entrar</button>
+        </div>
+    </form>
+</div>
