@@ -1,0 +1,33 @@
+﻿@model List<PasaFestWebV2.Models.Concierto>
+
+@{
+    ViewData["Title"] = "Conciertos Registrados";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center text-primary mb-4">🎤 Conciertos Registrados</h2>
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark text-center">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Lugar</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var concierto in Model)
+            {
+                <tr>
+                    <td class="text-center">@concierto.IdConcierto</td>
+                    <td>@concierto.Nombre</td>
+                    <td>@concierto.Lugar</td>
+                    <td>@concierto.Fecha?.ToString("dd/MM/yyyy")</td>
+                    <td>@concierto.Estado</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,19 +1,30 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using PasaFestWebV2.Models;
 
-namespace PasaFestWebV2.Controllers
+public class AdminController : Controller
 {
-    public class AdminController : Controller
-    {
-        public IActionResult Panel()
-        {
-            // Validamos si hay un nombre en TempData (o más adelante Session)
-            if (TempData["AdminNombre"] == null)
-            {
-                return RedirectToAction("Login", "Auth");
-            }
+    private readonly PasaFestDbContext _context;
 
-            ViewBag.NombreAdmin = TempData["AdminNombre"];
-            return View();
-        }
+    public AdminController(PasaFestDbContext context)
+    {
+        _context = context;
     }
+
+    public IActionResult Panel()
+    {
+        if (TempData["AdminNombre"] == null)
+            return RedirectToAction("Login", "Auth");
+
+        ViewBag.NombreAdmin = TempData["AdminNombre"];
+        return View();
+    }
+
+    public IActionResult Conciertos()
+    {
+        var conciertos = _context.Conciertos.ToList();
+        return View(conciertos);
+    }
+
 }
+
