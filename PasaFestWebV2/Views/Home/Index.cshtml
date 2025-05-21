@@ -1,0 +1,29 @@
+﻿@model List<PasaFestWebV2.Models.Concierto>
+
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<h1 class="text-center mt-4 mb-5 fw-bold">
+    🎶 Próximos Conciertos 🎶
+</h1>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var concierto in Model)
+    {
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0">
+                <img src="https://source.unsplash.com/600x300/?concert,music,@concierto.Nombre" class="card-img-top" alt="Imagen de concierto">
+                <div class="card-body">
+                    <h5 class="card-title">@concierto.Nombre</h5>
+                    <p class="card-text">
+                        <strong>📅 Fecha:</strong> @(concierto.Fecha?.ToString("dd/MM/yyyy"))<br />
+                        <strong>📍 Lugar:</strong> @concierto.Lugar <br />
+                        <strong>🎫 Estado:</strong> <span class="badge bg-primary">@concierto.Estado</span>
+                    </p>
+                    <a href="#" class="btn btn-success w-100">Comprar entrada</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
