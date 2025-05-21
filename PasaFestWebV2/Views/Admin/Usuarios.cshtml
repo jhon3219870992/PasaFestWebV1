@@ -1,0 +1,40 @@
+﻿@model List<PasaFestWebV2.Models.Usuario>
+
+@{
+    ViewData["Title"] = "Usuarios Registrados";
+}
+
+<div class="container mt-4">
+    <h2 class="text-primary text-center">👥 Usuarios y sus Entradas</h2>
+
+    @foreach (var usuario in Model)
+    {
+        <div class="card mt-4">
+            <div class="card-header bg-info text-white">
+                <strong>@usuario.Nombre @usuario.ApellidoPat (@usuario.Correo)</strong>
+            </div>
+            <div class="card-body">
+                @if (usuario.Compras.Any())
+                {
+                    <ul class="list-group">
+                        @foreach (var compra in usuario.Compras)
+                        {
+                            foreach (var entrada in compra.Entrada)
+                            {
+                                <li class="list-group-item">
+                                    🎫 Zona: <strong>@entrada.IdZonaNavigation?.Nombre</strong> -
+                                    Estado: @entrada.Estado -
+                                    Fecha: @entrada.FechaCompra?.ToString("dd/MM/yyyy")
+                                </li>
+                            }
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p class="text-muted">Este usuario no tiene entradas.</p>
+                }
+            </div>
+        </div>
+    }
+</div>

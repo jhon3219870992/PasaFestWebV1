@@ -25,6 +25,16 @@ public class AdminController : Controller
         var conciertos = _context.Conciertos.ToList();
         return View(conciertos);
     }
+    public IActionResult Usuarios()
+    {
+        var usuariosConEntradas = _context.Usuarios
+            .Include(u => u.Compras)
+                .ThenInclude(c => c.Entrada)
+                    .ThenInclude(e => e.IdZonaNavigation)
+            .ToList();
+
+        return View(usuariosConEntradas);
+    }
 
 }
 
