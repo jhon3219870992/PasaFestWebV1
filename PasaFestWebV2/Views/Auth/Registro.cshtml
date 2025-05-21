@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Registrarse";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center text-primary mb-4">📝 Crear cuenta nueva</h2>
+
+    @if (ViewBag.Mensaje != null)
+    {
+        <div class="alert alert-warning text-center">@ViewBag.Mensaje</div>
+    }
+
+    <form method="post" class="mx-auto" style="max-width: 500px;">
+        <div class="row mb-3">
+            <div class="col">
+                <label>Nombre</label>
+                <input type="text" name="nombre" class="form-control" required />
+            </div>
+            <div class="col">
+                <label>Apellido Paterno</label>
+                <input type="text" name="apellidoPat" class="form-control" required />
+            </div>
+            <div class="col">
+                <label>Apellido Materno</label>
+                <input type="text" name="apellidoMat" class="form-control" required />
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label>Correo electrónico</label>
+            <input type="email" name="correo" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label>Contraseña</label>
+            <input type="password" name="contraseña" class="form-control" required />
+        </div>
+
+        <div class="d-grid">
+            <button type="submit" class="btn btn-success">Registrarme</button>
+        </div>
+    </form>
+</div>

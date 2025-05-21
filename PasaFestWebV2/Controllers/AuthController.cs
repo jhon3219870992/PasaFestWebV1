@@ -42,5 +42,38 @@ namespace PasaFestWebV2.Controllers
             ViewBag.Mensaje = "❌ Correo o contraseña incorrectos.";
             return View();
         }
+        [HttpGet]
+        public IActionResult Registro()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Registro(string nombre, string apellidoPat, string apellidoMat, string correo, string contraseña)
+        {
+            // Validar si ya existe un usuario con ese correo
+            if (_context.Usuarios.Any(u => u.Correo == correo))
+            {
+                ViewBag.Mensaje = "⚠️ Ya existe un usuario con ese correo.";
+                return View();
+            }
+
+            var nuevoUsuario = new Usuario
+            {
+                Nombre = nombre,
+                ApellidoPat = apellidoPat,
+                ApellidoMat = apellidoMat,
+                Correo = correo,
+                Contraseña = contraseña,
+                FechaRegistro = DateTime.Now
+            };
+
+            _context.Usuarios.Add(nuevoUsuario);
+            _context.SaveChanges();
+
+            TempData["UsuarioNombre"] = nuevoUsuario.Nombre;
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }
