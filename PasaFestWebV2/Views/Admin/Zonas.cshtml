@@ -1,0 +1,46 @@
+﻿@model List<PasaFestWebV2.Models.Zona>
+
+@{
+    ViewData["Title"] = "Zonas por Concierto";
+    var conciertos = ViewBag.Conciertos as List<PasaFestWebV2.Models.Concierto>;
+    int selectedConciertoId = Model.FirstOrDefault()?.IdConcierto ?? 0;
+}
+
+<div class="container mt-4">
+    <h2 class="text-center text-primary mb-4">🎫 Zonas del Concierto</h2>
+
+    <form method="get" class="mb-4">
+        <label for="idConcierto">Seleccionar Concierto:</label>
+        <select id="idConcierto" name="idConcierto" class="form-select w-auto d-inline-block ms-2" onchange="this.form.submit()">
+            @foreach (var c in conciertos)
+            {
+                <option value="@c.IdConcierto" selected="@(c.IdConcierto == selectedConciertoId ? "selected" : null)">
+                    @c.Nombre - @c.Fecha?.ToString("dd/MM/yyyy")
+                </option>
+            }
+        </select>
+    </form>
+
+    <div class="row row-cols-1 row-cols-md-3 g-3">
+        @foreach (var zona in Model)
+        {
+            // Si la zona tiene alguna entrada con estado diferente a "Disponible", la consideramos ocupada
+            bool ocupada = zona.Entrada.Any(e => e.Estado != "Disponible");
+
+            <div class="col">
+                <div class="card shadow-sm text-white @(ocupada ? "bg-danger" : "bg-success")">
+                    <div class="card-body">
+                        <h5 class="card-title">@zona.Nombre</h5>
+                        <p class="card-text">
+                            Capacidad: @zona.Capacidad <br />
+                            Ocupados: @zona.EspaciosOcupados
+                        </p>
+                        <p class="card-text fw-bold">
+                            Estado: @(ocupada ? "Ocupada" : "Libre")
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
